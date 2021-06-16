@@ -1,13 +1,8 @@
 const { Schema, model } = require('mongoose');
-const productSchema = require('./products.js');
 
 // Estrcuturar data de order
 const orderSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     userId: {
       type: String,
       required: true,
@@ -21,21 +16,26 @@ const orderSchema = new Schema(
         qty: {
           type: Number,
         },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: 'products',
+          required: true,
         },
       },
     ],
     status: {
       type: String,
+      default: 'pending',
       required: true,
     },
     dateEntry: {
-      type: new Date(),
+      type: Date,
+      default: Date.now,
       required: true,
     },
     dateProcessed: {
-      type: new Date(),
+      type: Date,
+      default: Date.now,
       required: true,
     },
   },
@@ -44,4 +44,4 @@ const orderSchema = new Schema(
   },
 );
 
-module.export = model('order', orderSchema);
+module.exports = model('Order', orderSchema);

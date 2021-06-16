@@ -2,10 +2,6 @@ const { Schema, model } = require('mongoose');
 
 const productSchema = new Schema(
   {
-    id: {
-      type: String,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -15,7 +11,7 @@ const productSchema = new Schema(
       required: true,
     },
     image: {
-      url: String,
+      type: String,
       required: true,
     },
     category: {
@@ -23,8 +19,8 @@ const productSchema = new Schema(
       required: true,
     },
     dateEntry: {
-      type: new Date(),
-      required: true,
+      type: Date,
+      default: Date.now(),
     },
   },
   {
@@ -32,4 +28,4 @@ const productSchema = new Schema(
   },
 );
 
-module.export = model('products', productSchema);
+module.exports = model('Product', productSchema);

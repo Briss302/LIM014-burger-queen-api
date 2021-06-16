@@ -2,19 +2,21 @@ const bcrypt = require('bcrypt');
 const { model } = require('mongoose');
 const User = require('../models/user');
 
-const options = {
-  page: 1,
-  limit: 3,
-};
 // Aquí debe ir la lógica de crear al usuario y
 // dar acceso a la bs
 module.exports = {
   getUsers: async (req, resp, next) => {
-    User.paginate({}, options, (err, docs) => {
-      resp.send({
-        items: docs,
-      });
+    const options = {
+      page: parseInt(req.query.page, 10) || 1,
+      limit: parseInt(req.query.limit, 10) || 10,
+    };
+    const paginates = await User.paginate({}, options);
+    resp.links({
+      prev: `http://localhost:8081/users?limit=${options.limit}&page=${options.page - 1}`,
     });
+
+    resp.send(paginates);
+    next();
   },
   getUserId: async (req, resp, next) => {
     try {
