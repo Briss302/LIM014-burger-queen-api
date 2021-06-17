@@ -14,7 +14,7 @@ module.exports = {
     }
   },
   createProducts: async (req, resp, next) => {
-    console.log('fechaa', Date.now());
+    // console.log('fechaa', Date.now());
     const {
       name,
       price,

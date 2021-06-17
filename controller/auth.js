@@ -8,6 +8,7 @@ const { secret } = config;
 module.exports = {
   validateUser: (req, resp, next) => {
     const { email, password } = req.body;
+    
 
     if (!email || !password) {
       return next(400);

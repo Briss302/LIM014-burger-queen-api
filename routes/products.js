@@ -120,7 +120,7 @@ module.exports = (app, nextMain) => {
    * @code {200} si la autenticación es correcta
    * @code {401} si no hay cabecera de autenticación
    * @code {403} si no es ni admin
-   * @code {404} si el producto con `productId` indicado no existe
+   * @code {404} si el producto con `productId` indicado no existe 
    */
   app.delete('/products/:uid', deleteProduct);
 

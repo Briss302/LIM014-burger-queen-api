@@ -2,7 +2,16 @@ const Order = require('../models/order');
 
 module.exports = {
   getOrders: async (req, resp, next) => {},
-  getOrderById: async (req, resp, next) => {},
+  getOrderById: async (req, resp, next) => {
+    try {
+      const orderId = req.params.uid;
+      const findOrder = await Order.findOne({ _id: orderId });
+
+      return resp.status(200).json(findOrder);
+    } catch (error) {
+      return next(404);
+    }
+  },
   createOrder: async (req, resp, next) => {
     const {
       userId,
@@ -28,7 +37,35 @@ module.exports = {
       next(err);
     }
   },
-  updateOrder: async (req, res, next) => {},
-  deleteOrder: async (req, resp, next) => {},
+  updateOrder: async (req, res, next) => {
+    const {
+      userId,
+      client,
+      products,
+    } = req.body;
+    try {
+      const orderId = req.params.uid;
 
+      await Order.findByIdAndUpdate({ _id: orderId }, {
+        userId,
+        client,
+        products,
+      });
+
+      const findOrder = await Order.findOne({ _id: orderId });
+      res.status(200).send(findOrder);
+    } catch (err) {
+      next(err);
+    }
+  },
+  deleteOrder: async (req, resp, next) => {
+    try {
+      const orderId = req.params.uid;
+      const findOrder = await Order.findOne({ _id: orderId });
+      await Order.findByIdAndDelete({ _id: orderId });
+      resp.status(200).send(findOrder);
+    } catch (err) {
+      next(err);
+    }
+  },
 };
