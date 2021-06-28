@@ -61,13 +61,14 @@ describe('GET /products/:productid', () => {
       .then((resp) => expect(resp.status).toBe(404))
   ));
 
-  it('should get product with Auth', () => (
+  it.only('should get product with Auth', () => (
     fetchAsTestUser('/products')
       .then((resp) => {
         expect(resp.status).toBe(200);
         return resp.json();
       })
       .then((json) => {
+        console.log(json);
         expect(Array.isArray(json)).toBe(true);
         expect(json.length > 0).toBe(true);
         json.forEach((product) => {
