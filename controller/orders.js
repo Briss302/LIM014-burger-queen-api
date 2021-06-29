@@ -1,6 +1,4 @@
 const Order = require('../models/order');
-const Product = require('../models/order');
-const { isAdmin } = require('../middleware/auth');
 const {
   Paginate,
   isObjectId,
@@ -11,6 +9,7 @@ module.exports = {
     try {
       const url = `${req.protocol}://${req.get('host')}${req.path}`;
       const options = {
+        populate: 'products.product',
         page: parseInt(req.query.page, 10) || 1,
         limit: parseInt(req.query.limit, 10) || 10,
       };

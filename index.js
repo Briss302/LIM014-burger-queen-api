@@ -11,12 +11,13 @@ const { port, dbUrl, secret } = config;
 const app = express();
 
 // Conexión a la Base de Datos (MongoDB)
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then((x) => console.log(x.connections[0].name, 'Database is connected'))
-  .catch((error) => console.log(error));
+mongoose
+  .connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((db) => console.info(db.connections))
+  .catch((error) => console.info(error));
 
 //
 app.set('config', config);
