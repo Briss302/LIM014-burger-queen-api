@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 exports.port = process.argv[2] || process.env.PORT || 8081;
 exports.dbUrl = process.env.DB_URL;
 exports.secret = process.env.JWT_SECRET || 'esta-es-la-api-burger-queen';
