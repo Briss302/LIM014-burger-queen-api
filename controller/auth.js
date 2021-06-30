@@ -37,6 +37,7 @@ module.exports = {
             if (err) {
               console.error(err);
             }
+            console.log(resp);
             return resp.status(200).json({ token });
           },
         );
